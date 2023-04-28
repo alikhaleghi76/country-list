@@ -34,52 +34,54 @@ class LoginScreenState extends State<LoginScreen> {
         ),
         body: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16.0),
-          child: SingleChildScrollView(
-            child: Column(
-              children: [
-                TextField(
-                  controller: _emailController,
-                  decoration: const InputDecoration(
-                    hintText: 'Email',
-                  ),
-                  enabled: state is! LoginStateLoading,
-                  onChanged: (_) => _validateForm(),
-                ),
-                const SizedBox(height: 16),
-                TextField(
-                  controller: _passwordController,
-                  obscureText: true,
-                  decoration: const InputDecoration(
-                    hintText: 'Password',
-                  ),
-                  enabled: state is! LoginStateLoading,
-                  onChanged: (_) => _validateForm(),
-                ),
-                const SizedBox(height: 16),
-                ElevatedButton(
-                  onPressed: (_isSubmitDisabled || state is LoginStateLoading)
-                      ? null
-                      : () {
-                          _login(context, _emailController.value.text, _passwordController.value.text);
-                        },
-                  child: state is LoginStateLoading
-                      ? const SizedBox(
-                          width: Consts.buttonLoadingSize,
-                          height: Consts.buttonLoadingSize,
-                          child: CircularProgressIndicator(
-                            strokeWidth: 2,
-                          ))
-                      : const Text('Login'),
-                ),
-                if (_errorMessage.isNotEmpty)
-                  Padding(
-                    padding: const EdgeInsets.symmetric(vertical: 8.0),
-                    child: Text(
-                      _errorMessage,
-                      style: const TextStyle(color: Colors.red),
+          child: Center(
+            child: SingleChildScrollView(
+              child: Column(
+                children: [
+                  TextField(
+                    controller: _emailController,
+                    decoration: const InputDecoration(
+                      hintText: 'Email',
                     ),
+                    enabled: state is! LoginStateLoading,
+                    onChanged: (_) => _validateForm(),
                   ),
-              ],
+                  const SizedBox(height: 16),
+                  TextField(
+                    controller: _passwordController,
+                    obscureText: true,
+                    decoration: const InputDecoration(
+                      hintText: 'Password',
+                    ),
+                    enabled: state is! LoginStateLoading,
+                    onChanged: (_) => _validateForm(),
+                  ),
+                  const SizedBox(height: 16),
+                  ElevatedButton(
+                    onPressed: (_isSubmitDisabled || state is LoginStateLoading)
+                        ? null
+                        : () {
+                            _login(context, _emailController.value.text, _passwordController.value.text);
+                          },
+                    child: state is LoginStateLoading
+                        ? const SizedBox(
+                            width: Consts.buttonLoadingSize,
+                            height: Consts.buttonLoadingSize,
+                            child: CircularProgressIndicator(
+                              strokeWidth: 2,
+                            ))
+                        : const Text('Login'),
+                  ),
+                  if (_errorMessage.isNotEmpty)
+                    Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 8.0),
+                      child: Text(
+                        _errorMessage,
+                        style: const TextStyle(color: Colors.red),
+                      ),
+                    ),
+                ],
+              ),
             ),
           ),
         ),

@@ -1,4 +1,6 @@
 import 'package:country_list/core/di/locator.dart';
+import 'package:country_list/feature/country_list/domain/repository/api_repository.dart';
+import 'package:country_list/feature/country_list/presentation/cubit/country/country_cubit.dart';
 import 'package:country_list/feature/country_list/presentation/screen/country_list_screen.dart';
 import 'package:country_list/feature/login/domain/repository/local_repository.dart';
 import 'package:country_list/feature/login/presentation/cubit/login/login_cubit.dart';
@@ -18,7 +20,9 @@ class Routes{
             create: (_) => LoginCubit(locator<LocalRepository>()),
             child: const LoginScreen());
       case Routes.countryList:
-        return const CountryListScreen();
+        return BlocProvider(
+            create: (_) => CountryCubit(locator<ApiRepository>()),
+            child: const CountryListScreen());
       default:
         return Container();
     }
