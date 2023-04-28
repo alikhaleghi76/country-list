@@ -1,4 +1,5 @@
 import 'package:country_list/core/config/consts.dart';
+import 'package:country_list/core/multi_lang/app_local.dart';
 import 'package:country_list/core/router/routes.dart';
 import 'package:country_list/core/util/validators.dart';
 import 'package:country_list/feature/login/presentation/cubit/login/login_cubit.dart';
@@ -25,12 +26,12 @@ class LoginScreenState extends State<LoginScreen> {
         Navigator.of(context).pushReplacementNamed(Routes.countryList);
       }
       if (state is LoginStateFailure) {
-        _showSnackBar(context, state.errorMessage);
+        _showSnackBar(context, AppLocal.of(context).getTranslate(state.errorMessage));
       }
     }, builder: (context, state) {
       return Scaffold(
         appBar: AppBar(
-          title: const Text("Login"),
+          title: Text(AppLocal.of(context).getTranslate('login')),
         ),
         body: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 16.0),
@@ -40,21 +41,21 @@ class LoginScreenState extends State<LoginScreen> {
                 children: [
                   TextField(
                     controller: _emailController,
-                    decoration: const InputDecoration(
-                      hintText: 'Email',
+                    decoration: InputDecoration(
+                      hintText: AppLocal.of(context).getTranslate('email'),
                     ),
                     enabled: state is! LoginStateLoading,
-                    onChanged: (_) => _validateForm(),
+                    onChanged: (_) => _validateForm(context),
                   ),
                   const SizedBox(height: 16),
                   TextField(
                     controller: _passwordController,
                     obscureText: true,
-                    decoration: const InputDecoration(
-                      hintText: 'Password',
+                    decoration: InputDecoration(
+                      hintText: AppLocal.of(context).getTranslate('password'),
                     ),
                     enabled: state is! LoginStateLoading,
-                    onChanged: (_) => _validateForm(),
+                    onChanged: (_) => _validateForm(context),
                   ),
                   const SizedBox(height: 16),
                   ElevatedButton(
@@ -70,7 +71,7 @@ class LoginScreenState extends State<LoginScreen> {
                             child: CircularProgressIndicator(
                               strokeWidth: 2,
                             ))
-                        : const Text('Login'),
+                        : Text(AppLocal.of(context).getTranslate('login')),
                   ),
                   if (_errorMessage.isNotEmpty)
                     Padding(
@@ -93,7 +94,7 @@ class LoginScreenState extends State<LoginScreen> {
     BlocProvider.of<LoginCubit>(context).loginByEmail(email: email, password: password);
   }
 
-  void _validateForm() {
+  void _validateForm(BuildContext context) {
     final email = _emailController.text.trim();
     final password = _passwordController.text.trim();
 
@@ -105,7 +106,7 @@ class LoginScreenState extends State<LoginScreen> {
     } else {
       setState(() {
         _isSubmitDisabled = true;
-        _errorMessage = 'Invalid email or password';
+        _errorMessage = AppLocal.of(context).getTranslate('invalid_data');
       });
     }
   }

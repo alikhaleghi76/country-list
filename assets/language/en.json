@@ -1,0 +1,11 @@
+{
+  "login": "Login",
+  "email": "Email",
+  "password": "Password",
+  "invalid_data": "Invalid email or password",
+  "user_not_found": "User not found",
+  "user_disabled": "User is disabled",
+  "country_list": "Countries list",
+  "reload": "Reload",
+  "general_error": "Error, Try again."
+}

@@ -1,3 +1,4 @@
+import 'package:country_list/core/multi_lang/app_local.dart';
 import 'package:country_list/feature/country_list/presentation/cubit/country/country_cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -13,7 +14,7 @@ class CountryListScreen extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Countries list"),
+        title: Text(AppLocal.of(context).getTranslate("country_list")),
       ),
       body: BlocBuilder<CountryCubit, CountryState>(
         builder: (context, state) {
@@ -34,14 +35,15 @@ class CountryListScreen extends StatelessWidget {
                           placeholderBuilder: (context) {
                             return const SkeletonAvatar(
                                 style: SkeletonAvatarStyle(
-                                  width: 70,
-                                ));
+                              width: 70,
+                            ));
                           },
                           width: 50,
                           height: 50,
                         ),
                       ),
-                      title: Text(country.name),
+                      title:
+                          Text(Localizations.localeOf(context).languageCode == 'fa' ? country.translations.fa : country.name),
                       subtitle: Text(country.capital),
                     );
                   },
@@ -55,15 +57,13 @@ class CountryListScreen extends StatelessWidget {
               child: SingleChildScrollView(
                 child: Column(
                   children: [
-                    Text(
-                        state.errorMessage
-                    ),
+                    Text(state.errorMessage),
                     const SizedBox(height: 16),
                     ElevatedButton(
                       onPressed: () {
                         _reload(context);
                       },
-                      child: const Text('Reload'),
+                      child: Text(AppLocal.of(context).getTranslate("reload")),
                     ),
                   ],
                 ),

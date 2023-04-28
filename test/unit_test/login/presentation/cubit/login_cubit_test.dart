@@ -37,7 +37,7 @@ void main() {
           cubit.loginByEmail(email: "ali@gmail.com", password: "Abcd1234");
         },
         expect: () {
-          return [const LoginStateLoading(), const LoginStateFailure(errorMessage: "User not found")];
+          return [const LoginStateLoading(), const LoginStateFailure(errorMessage: "user_not_found")];
         },
         verify: (bloc) {
           verify(() => mockLocalRepository.findUserByEmail('ali@gmail.com')).called(1);
@@ -57,7 +57,7 @@ void main() {
           cubit.loginByEmail(email: "sara@gmail.com", password: "Abcd1234");
         },
         expect: () {
-          return [const LoginStateLoading(), const LoginStateFailure(errorMessage: "User is disabled")];
+          return [const LoginStateLoading(), const LoginStateFailure(errorMessage: "user_disabled")];
         },
         verify: (bloc) {
           verify(() => mockLocalRepository.findUserByEmail('sara@gmail.com')).called(1);

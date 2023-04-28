@@ -17,13 +17,13 @@ class LoginCubit extends Cubit<LoginState> {
     User? user = await _localRepository.findUserByEmail(email);
 
       if (user == null) {
-        emit(const LoginStateFailure(errorMessage: "User not found"));
+        emit(const LoginStateFailure(errorMessage: "user_not_found"));
         return;
       }
       if (user.isEnabled) {
         emit(const LoginStateSuccess());
       } else {
-        emit(const LoginStateFailure(errorMessage: "User is disabled"));
+        emit(const LoginStateFailure(errorMessage: "user_disabled"));
       }
   }
 
