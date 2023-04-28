@@ -1,5 +1,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.country_list">
+
+    <uses-permission android:name="android.permission.INTERNET" />
+
    <application
         android:label="country_list"
         android:name="${applicationName}"
